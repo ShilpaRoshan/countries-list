@@ -27,7 +27,6 @@ const columns = [
         label: "Languages",
         minWidth: 170,
         align: "right",
-        // format: (value) => value.toFixed(2),
     },
     {
         id: "population",

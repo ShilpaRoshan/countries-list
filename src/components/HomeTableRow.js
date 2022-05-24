@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
@@ -15,39 +16,30 @@ export default function HomeTableRow({ columns, row }) {
                     result = row.region;
                 } else if (column.id === "population") {
                     result = row.population;
-                    console.log(`Population:${row.population}`);
                 } else if (column.id === "languages") {
                     result = row.languages;
                 } else {
                     result = null;
                 }
                 const value = result;
-                console.log(`this is value ${value}`);
-                return (
+
+                return value ? (
                     <TableCell key={column.id} align={column.align}>
-                        {column.id === "languages" ? (
+                        {column.format ? (
+                            column.format(value)
+                        ) : column.id === "languages" ? (
                             Object.keys(value).map((item) => {
-                                return <p>{value[item]}</p>;
+                                return <p key={item}>{value[item]}</p>;
                             })
+                        ) : column.id === "name" ? (
+                            <Link to={`/country/${value}`}>
+                                <p>{value}</p>
+                            </Link>
                         ) : (
                             <p>{value}</p>
                         )}
                     </TableCell>
-                    // {value ? (
-                    //         <TableCell
-                    //             key={column.id}
-                    //             align={column.align}
-                    //         >
-                    //             {column.format
-                    //                 ? column.format(
-                    //                       value
-                    //                   )
-                    //                 : value}
-                    //         </TableCell>
-                    //     ) : (
-                    //         <span>-</span>
-                    //     )}
-                );
+                ) : null;
             })}
         </TableRow>
     );
