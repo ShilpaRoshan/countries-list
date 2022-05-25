@@ -5,7 +5,7 @@ import { CardContent, CardMedia } from "@mui/material";
 import { Typography } from "@mui/material";
 
 export default function CountryCard({ result }) {
-    console.log(result);
+    console.log(`This is CountryCard result ${result.borders}`);
 
     return (
         <Card sx={{ minWidth: 200 }}>
@@ -18,13 +18,9 @@ export default function CountryCard({ result }) {
                             </h1>
                         }
                     />
-                    <CardMedia
-                        component="img"
-                        height="300"
-                        width="400"
-                        image={result.flags.png}
-                        alt="flag"
-                    />
+                    <CardMedia sx={{ textAlign: "center" }}>
+                        <img src={result.flags.png} alt="flag" />
+                    </CardMedia>
                     <CardContent>
                         <Typography sx={{ fontSize: 20 }} component="p">
                             Capital : {result.capital}
@@ -32,30 +28,45 @@ export default function CountryCard({ result }) {
                         <Typography sx={{ fontSize: 20 }} component="p">
                             Region : {result.region}
                         </Typography>
-                        <Typography sx={{ fontSize: 20 }} component="p">
-                            {Object.keys(result.languages).map((key) => {
-                                return (
-                                    <p key={result.languages[key]}>
-                                        Languages : {result.languages[key]}
-                                    </p>
-                                );
-                            })}
-                        </Typography>
-                        <Typography sx={{ fontSize: 20 }} component="p">
-                            {result.borders.map((item) => {
-                                return <p> Borders : {item}</p>;
-                            })}
-                        </Typography>
-                        <Typography sx={{ fontSize: 20 }} component="p">
-                            {Object.keys(result.currencies).map((currency) => {
-                                return (
-                                    <p>
-                                        {result.currencies[currency].name},
-                                        {result.currencies[currency].symbol}
-                                    </p>
-                                );
-                            })}
-                        </Typography>
+                        Languages :
+                        {Object.keys(result.languages).map((key) => {
+                            return (
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    key={result.cca3 + key}
+                                    component="p"
+                                >
+                                    {result.languages[key]}
+                                </Typography>
+                            );
+                        })}
+                        Borders:
+                        {Object.keys(result.borders).map((key) => {
+                            return (
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    key={result.cca3 + key}
+                                    component="p"
+                                >
+                                    {result.borders[key]}
+                                </Typography>
+                            );
+                        })}
+                        {Object.keys(result.currencies).map((currency) => {
+                            return (
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    key={result.currencies[currency].name}
+                                    component="p"
+                                >
+                                    {result.currencies[currency].name},
+                                    {result.currencies[currency].symbol}
+                                </Typography>
+                            );
+                        })}
                     </CardContent>
                 </div>
             ) : (
