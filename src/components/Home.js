@@ -43,9 +43,12 @@ export default function Home() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const dispatch = useDispatch();
-    const countriesData = useSelector((state) => state.countriesData);
-    const loading = useSelector((state) => state.loading);
-    const error = useSelector((state) => state.error);
+    const countriesData = useSelector(
+        (state) => state.countriesData.countriesData
+    );
+    // console.log(countriesData.countriesData, "HOME_COUNTRIES");
+    const loading = useSelector((state) => state.countriesData.loading);
+    const error = useSelector((state) => state.countriesData.error);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);

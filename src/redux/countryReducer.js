@@ -12,9 +12,10 @@ const countryReducer = (state = initialState, action) => {
                 loading: true,
             };
         case "FETCH_COUNTRY_SUCCESS":
+            console.log(action.payload, "FETCH_COUNTRY_REDUCER");
             return {
                 ...state,
-                countryNameData: action.payload.response,
+                countryNameData: action.payload,
                 loading: false,
             };
         case "FETCH_COUNTRY_FAILURE":
