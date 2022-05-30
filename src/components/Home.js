@@ -1,12 +1,13 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCountries } from "../redux/countriesAction";
+
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
-
 import TableContainer from "@mui/material/TableContainer";
-
 import TablePagination from "@mui/material/TablePagination";
 
-import useCountries from "../custom-hooks/useCountries";
+//import useCountries from "../custom-hooks/useCountries";
 import HomeTableBody from "./HomeTableBody";
 // import HomeTableRow from "./HomeTableRow";
 import HomeTableHead from "./HomeTableHead";
@@ -41,6 +42,11 @@ export default function Home() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+    const dispatch = useDispatch();
+    const countriesData = useSelector((state) => state.countriesData);
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -49,9 +55,12 @@ export default function Home() {
         setRowsPerPage(event.target.value);
         setPage(0);
     };
-    const { countriesData, error, loading } = useCountries(
-        "https://restcountries.com/v3.1/all"
-    );
+    // const { countriesData, error, loading } = useCountries(
+    //     "https://restcountries.com/v3.1/all"
+    // );
+    React.useEffect(() => {
+        dispatch(fetchCountries());
+    }, [dispatch]);
     if (error) return <div>Error</div>;
     if (loading) return <div>Loading...</div>;
     return (
