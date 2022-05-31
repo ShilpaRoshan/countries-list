@@ -7,13 +7,19 @@ export const fetchCountriesRequest = () => {
 export const fetchCountriesSuccess = (response) => {
     return {
         type: "FETCH_COUNTRIES_SUCCESS",
-        payload: { response },
+        payload: response,
     };
 };
 export const fetchCountriesFailure = (error) => {
     return {
         type: "FETCH_COUNTRIES_FAILURE",
-        payload: { error },
+        payload: error,
+    };
+};
+export const filteredCountries = (keyword) => {
+    return {
+        type: "FILTER_COUNTRIES",
+        payload: keyword,
     };
 };
 

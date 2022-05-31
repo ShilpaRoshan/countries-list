@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCountries } from "../redux/countriesAction";
+import { filteredCountries } from "../redux/countriesAction";
 
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -39,13 +40,14 @@ const columns = [
 export default function Home() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [inputText, setInputText] = React.useState("");
 
     const dispatch = useDispatch();
-    const countriesData = useSelector(
-        (state) => state.countriesData.countriesData
+    const countriesData = useSelector((state) =>
+        state.countriesData.keyword
+            ? state.countriesData.filteredCountriesData
+            : state.countriesData.countriesData
     );
-    // console.log(countriesData.countriesData, "HOME_COUNTRIES");
+
     const loading = useSelector((state) => state.countriesData.loading);
     const error = useSelector((state) => state.countriesData.error);
 
@@ -58,19 +60,7 @@ export default function Home() {
         setPage(0);
     };
     const inputhandler = (event) => {
-        const result = event.target.value.toLowerCase();
-        console.log(result, "SEARCH_BAR");
-        setInputText(result);
-    };
-    const filteredCountries = () => {
-        const filteredCountriesData = countriesData.filter((el) => {
-            if (inputText === "") {
-                return el;
-            } else {
-                return el.text.toLowerCase().includes(inputText);
-            }
-        });
-        return;
+        dispatch(filteredCountries(event.target.value));
     };
 
     React.useEffect(() => {
