@@ -1,25 +1,25 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCountries } from "../redux/countriesAction";
-import { filteredCountries } from "../redux/countriesAction";
 
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-
 import HomeTableBody from "./HomeTableBody";
 import HomeTableHead from "./HomeTableHead";
+import Navigation from "./Navigation";
 
 const columns = [
     {
         id: "flags",
         label: "Flag",
         minWidth: 100,
-        align: "left",
-        // format: (value) => <img src={value} alt="flag" />,
+        align: "center",
+
+        format: (value) => <img src={value} alt="flag" />,
     },
-    { id: "name", label: "Name", minWidth: 170 },
+    { id: "name", label: "Name", minWidth: 170, align: "center" },
 
     { id: "region", label: "Region", minWidth: 100 },
     {
@@ -59,9 +59,6 @@ export default function Home() {
         setRowsPerPage(event.target.value);
         setPage(0);
     };
-    const inputhandler = (event) => {
-        dispatch(filteredCountries(event.target.value));
-    };
 
     React.useEffect(() => {
         dispatch(fetchCountries());
@@ -70,12 +67,8 @@ export default function Home() {
     if (loading) return <div>Loading...</div>;
     return (
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-            <input
-                type="text"
-                placeholder="Search country..."
-                onChange={inputhandler}
-            />
-            <TableContainer sx={{ maxHeight: 500 }}>
+            <Navigation />
+            <TableContainer sx={{ maxHeight: 1000 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <HomeTableHead columns={columns} />
                     <HomeTableBody

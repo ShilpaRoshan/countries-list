@@ -11,7 +11,7 @@ export default function HomeTableRow({ columns, row }) {
                 if (column.id === "name") {
                     result = row.name.common;
                 } else if (column.id === "flags") {
-                    result = row.flag;
+                    result = row.flags.png;
                 } else if (column.id === "region") {
                     result = row.region;
                 } else if (column.id === "population") {
