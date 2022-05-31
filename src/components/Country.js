@@ -34,7 +34,6 @@ export default function Country() {
     if (loading) return <div>Loading...</div>;
     return (
         <div>
-            hi
             <Link to="/">Back</Link>
             {console.log(countryNameData[0], "COUNTRY_PAGE")}
             {countryNameData &&

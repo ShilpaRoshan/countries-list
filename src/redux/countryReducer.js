@@ -1,5 +1,5 @@
 const initialState = {
-    countryNameData: null,
+    countryNameData: [],
     loading: false,
     error: null,
 };

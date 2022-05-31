@@ -7,9 +7,7 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 
-//import useCountries from "../custom-hooks/useCountries";
 import HomeTableBody from "./HomeTableBody";
-// import HomeTableRow from "./HomeTableRow";
 import HomeTableHead from "./HomeTableHead";
 
 const columns = [
@@ -41,6 +39,7 @@ const columns = [
 export default function Home() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [inputText, setInputText] = React.useState("");
 
     const dispatch = useDispatch();
     const countriesData = useSelector(
@@ -58,9 +57,22 @@ export default function Home() {
         setRowsPerPage(event.target.value);
         setPage(0);
     };
-    // const { countriesData, error, loading } = useCountries(
-    //     "https://restcountries.com/v3.1/all"
-    // );
+    const inputhandler = (event) => {
+        const result = event.target.value.toLowerCase();
+        console.log(result, "SEARCH_BAR");
+        setInputText(result);
+    };
+    const filteredCountries = () => {
+        const filteredCountriesData = countriesData.filter((el) => {
+            if (inputText === "") {
+                return el;
+            } else {
+                return el.text.toLowerCase().includes(inputText);
+            }
+        });
+        return;
+    };
+
     React.useEffect(() => {
         dispatch(fetchCountries());
     }, [dispatch]);
@@ -68,6 +80,11 @@ export default function Home() {
     if (loading) return <div>Loading...</div>;
     return (
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
+            <input
+                type="text"
+                placeholder="Search country..."
+                onChange={inputhandler}
+            />
             <TableContainer sx={{ maxHeight: 500 }}>
                 <Table stickyHeader aria-label="sticky table">
                     <HomeTableHead columns={columns} />

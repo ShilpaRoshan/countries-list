@@ -42,18 +42,22 @@ export default function CountryCard({ result }) {
                             );
                         })}
                         Borders:
-                        {Object.keys(result.borders).map((key) => {
-                            return (
-                                <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    key={result.cca3 + key}
-                                    component="p"
-                                >
-                                    {result.borders[key]}
-                                </Typography>
-                            );
-                        })}
+                        {result.borders ? (
+                            Object.keys(result.borders).map((key) => {
+                                return (
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        key={result.cca3 + key}
+                                        component="p"
+                                    >
+                                        {result.borders[key]}
+                                    </Typography>
+                                );
+                            })
+                        ) : (
+                            <p>No Borders</p>
+                        )}
                         {Object.keys(result.currencies).map((currency) => {
                             return (
                                 <Typography
