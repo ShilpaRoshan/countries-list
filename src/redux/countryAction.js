@@ -20,16 +20,16 @@ export const fetchCountryFailure = (error) => {
 };
 
 export const fetchCountryData = (countryname) => {
-    console.log(countryname, "COUNTRY_NAME");
+    //console.log(countryname, "COUNTRY_NAME");
     return async (dispatch) => {
         try {
             dispatch(fetchCountryRequest());
-            console.log("LOADING....");
+            // console.log("LOADING....");
             const response = await fetch(
                 `https://restcountries.com/v3.1/name/${countryname}`
             ).then((response) => response.json());
             //console.log(response, "BEFORE_RESPONSE_COUNTRYDATA");
-            console.log(response, "RESPONSE_COUNTRYDATA");
+            //console.log(response, "RESPONSE_COUNTRYDATA");
             dispatch(fetchCountrySuccess(response));
         } catch (error) {
             dispatch(fetchCountryFailure(error));

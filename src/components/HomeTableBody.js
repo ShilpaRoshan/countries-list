@@ -13,8 +13,14 @@ export default function HomeTableBody({
             <TableBody>
                 {countriesData
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                        return <HomeTableRow row={row} columns={columns} />;
+                    .map((row, index) => {
+                        return (
+                            <HomeTableRow
+                                row={row}
+                                columns={columns}
+                                key={index}
+                            />
+                        );
                     })}
             </TableBody>
         </>
