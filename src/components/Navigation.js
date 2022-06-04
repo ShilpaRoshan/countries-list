@@ -1,12 +1,18 @@
 import * as React from "react";
-import SearchCountries from "./SearchCountries";
+import { useSelector } from "react-redux";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Menu from "@mui/material/Menu";
+import Favorite from "@mui/icons-material/Favorite";
+import { Badge } from "@mui/material";
+import SearchCountries from "./SearchCountries";
 
 export default function Navigation() {
+    const favoriteCountries = useSelector(
+        (appState) => appState.countriesData.favoriteCountries
+    );
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -65,6 +71,12 @@ export default function Navigation() {
             <AppBar position="static">
                 <Toolbar>
                     <SearchCountries />
+                    <Badge
+                        badgeContent={favoriteCountries.length}
+                        color="error"
+                    >
+                        <Favorite />
+                    </Badge>
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
