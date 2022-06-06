@@ -16,23 +16,47 @@ export default function HomeTableRow({ columns, row }) {
     const favoriteCountries = useSelector(
         (appState) => appState.countriesData.favoriteCountries
     );
-    const isOpen = useSelector((appState) => appState.countriesData.isOpen);
-    console.log(favoriteCountries, "HOMETABLEROW_FAV_COUNTRIES[]_CHECK");
+    //const isOpen = useSelector((appState) => appState.countriesData.isOpen);
+    //console.log(favoriteCountries, "HOMETABLEROW_FAV_COUNTRIES[]_CHECK");
 
     const handleFavoriteClick = (country) => {
-        // if (!isOpen) {
-        //     console.log(isOpen, "CHECK IS_OPEN");
-        //     return dispatch(addFavoriteCountries(country));
+        // if (isOpen) {
+        //     console.log(isOpen, "CHECK IS_OPEN_REMOVE");
+        //     dispatch(removeFavoriteCountries(country));
+        //     return;
         // } else {
-        //     return dispatch(removeFavoriteCountries(country));
+        //     console.log(isOpen, "CHECK IS_OPEN_ADD");
+        //     dispatch(addFavoriteCountries(country));
+        //     return;
         // }
-        return isOpen
-            ? dispatch(addFavoriteCountries(country))
-            : dispatch(removeFavoriteCountries(country));
+        // isOpen
+        //     ? {dispatch(removeFavoriteCountries(country))
+        //     console.log("DISPATCH REMOVE")}
+        //     : dispatch(addFavoriteCountries(country));
         // dispatch(addFavoriteCountries(country));
         // console.log(isOpen, "HOMETABLEROW");
+        const isDuplicate = favoriteCountries.some(
+            (value) => value.name.common === country.name.common
+        );
+        if (isDuplicate) {
+            //console.log(isDuplicate, "Duplicate_REMOVE");
+            dispatch(removeFavoriteCountries(country));
+
+            return;
+        } else {
+            console.log(isDuplicate, "Duplicate_ADD");
+            dispatch(addFavoriteCountries(country));
+
+            return;
+        }
     };
-    // const handletogglefavorite = () => {};
+    function handletogglefavorite(country) {
+        const isDuplicate = favoriteCountries.some(
+            (value) => value.name.common === country.name.common
+        );
+        console.log(isDuplicate, "Handletogglefavorite");
+        return isDuplicate;
+    }
     return (
         <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
             {columns.map((column) => {
@@ -73,8 +97,8 @@ export default function HomeTableRow({ columns, row }) {
             })}
             <TableCell>
                 <FavoriteIcon
-                    sx={
-                        favoriteCountries.includes(row)
+                    sx={() =>
+                        handletogglefavorite(row)
                             ? { color: "red" }
                             : { color: "" }
                     }

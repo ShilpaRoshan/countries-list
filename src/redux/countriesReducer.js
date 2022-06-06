@@ -5,7 +5,6 @@ const initialState = {
     filteredCountriesData: [],
     keyword: null,
     favoriteCountries: [],
-    isOpen: true,
 };
 
 const countriesReducer = (state = initialState, action) => {
@@ -41,17 +40,17 @@ const countriesReducer = (state = initialState, action) => {
 
         case "ADD_FAVROITE_COUNTRIES": {
             const country = action.payload;
-            const isDuplicate = state.favoriteCountries.some(
-                (value) => value.name.common === country.name.common
-            );
-            if (isDuplicate) {
-                return state;
-            }
-
+            // const isDuplicate = state.favoriteCountries.some(
+            //     (value) => value.name.common === country.name.common
+            // );
+            // if (isDuplicate) {
+            //     return state;
+            // }
+            const newFavCountry = [...state.favoriteCountries, country];
+            console.log(newFavCountry, "LINE-50-Add_reducer");
             return {
                 ...state,
-                favoriteCountries: [...state.favoriteCountries, country],
-                isOpen: false,
+                favoriteCountries: newFavCountry,
             };
         }
 
@@ -62,12 +61,15 @@ const countriesReducer = (state = initialState, action) => {
             );
             console.log(index, "REMOVE_COUNTRIES_REDUCER");
             if (index >= 0) {
-                const newFavCountry = state.favoriteCountries.splice(index, 1);
-                console.log(newFavCountry, "NEW_[]_AFTER_REMOVE_COUNTRY");
+                console.log("INDEX > 0");
+                state.favoriteCountries.splice(index, 1);
+                console.log(
+                    state.favoriteCountries,
+                    "NEW_[]_AFTER_REMOVE_COUNTRY"
+                );
                 return {
                     ...state,
-                    favoriteCountries: [...state.favoriteCountries],
-                    isOpen: true,
+                    // favoriteCountries: newFavCountry,
                 };
             }
             return state;
