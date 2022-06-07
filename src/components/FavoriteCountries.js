@@ -3,14 +3,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import { CardContent, CardMedia } from "@mui/material";
-import { Typography } from "@mui/material";
+import { CardMedia } from "@mui/material";
+//import { Typography } from "@mui/material";
 
 function FavoriteCountries() {
     const favoriteCountriesList = useSelector(
         (appState) => appState.countriesData.favoriteCountries
     );
-    //console.log(favoriteCountriesList, "FROM FAV_PAGE");
     return (
         <React.Fragment>
             <Link to="/">Back</Link>

@@ -55,11 +55,49 @@ const countriesReducer = (state = initialState, action) => {
                 favoriteCountries,
             };
         }
-
-        default:
+        case "SORT_COUNTRIES_NAME": {
+            // console.log(state.countriesData, "SORT_COUNTRIES_REDUCER");
+            // console.log(action.payload, "PAYLOAD");
+            const sortedArray = [...state.countriesData].sort(
+                (firstEl, secondEl) => {
+                    if (firstEl.name.common < secondEl.name.common) {
+                        return -1;
+                    }
+                    if (firstEl.name.common > secondEl.name.common) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            );
+            console.log(sortedArray, "SORTED_COUNRTIES_DATA");
             return {
                 ...state,
+                countriesData: sortedArray,
             };
+        }
+        case "SORT_COUNTRIES_REGION": {
+            // console.log(state.countriesData, "SORT_COUNTRIES_REDUCER");
+            // console.log(action.payload, "PAYLOAD");
+            const sortedArray = [...state.countriesData].sort(
+                (firstEl, secondEl) => {
+                    if (firstEl.region < secondEl.region) {
+                        return -1;
+                    }
+                    if (firstEl.region > secondEl.region) {
+                        return 1;
+                    }
+                    return 0;
+                }
+            );
+            console.log(sortedArray, "SORTED_COUNRTIES_DATA");
+            return {
+                ...state,
+                countriesData: sortedArray,
+            };
+        }
+
+        default:
+            return state;
     }
 };
 export default countriesReducer;

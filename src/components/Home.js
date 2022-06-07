@@ -8,7 +8,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import HomeTableBody from "./HomeTableBody";
 import HomeTableHead from "./HomeTableHead";
-import Navigation from "./Navigation";
 
 const columns = [
     {
@@ -47,7 +46,7 @@ export default function Home() {
             ? state.countriesData.filteredCountriesData
             : state.countriesData.countriesData
     );
-
+    console.log(countriesData, "HOME_COMPONENT");
     const loading = useSelector((state) => state.countriesData.loading);
     const error = useSelector((state) => state.countriesData.error);
 
@@ -66,9 +65,8 @@ export default function Home() {
     if (error) return <div>Error</div>;
     if (loading) return <div>Loading...</div>;
     return (
-        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-            <Navigation />
-            <TableContainer sx={{ maxHeight: 1000 }}>
+        <Paper sx={{ width: "100%" }}>
+            <TableContainer>
                 <Table stickyHeader aria-label="sticky table">
                     <HomeTableHead columns={columns} />
                     <HomeTableBody

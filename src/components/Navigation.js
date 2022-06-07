@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,12 +9,14 @@ import Favorite from "@mui/icons-material/Favorite";
 import { Badge } from "@mui/material";
 
 import SearchCountries from "./SearchCountries";
-import { margin } from "@mui/system";
+//import SortComponent from "./SortComponent";
+import Test from "./Test";
 
 export default function Navigation() {
     const favoriteCountries = useSelector(
         (appState) => appState.countriesData.favoriteCountries
     );
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -69,7 +71,7 @@ export default function Navigation() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, maxHeight: "300vh" }}>
             <AppBar position="static">
                 <Toolbar>
                     <SearchCountries />
@@ -81,6 +83,8 @@ export default function Navigation() {
                             <Favorite sx={{ color: "white" }} />
                         </Link>
                     </Badge>
+                    {/* <SortComponent /> */}
+                    <Test />
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

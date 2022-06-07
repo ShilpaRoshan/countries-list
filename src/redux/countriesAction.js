@@ -23,17 +23,27 @@ export const filteredCountries = (keyword) => {
     };
 };
 export const addFavoriteCountries = (country) => {
-    console.log("ADD_COUNTRY_FAV_ACTION", country);
     return {
         type: "ADD_FAVROITE_COUNTRIES",
         payload: country,
     };
 };
 export const removeFavoriteCountries = (country) => {
-    console.log("REMOVE_COUNTRY_FAV_ACTION", country);
     return {
         type: "REMOVE_FAVORITE_COUNTRIES",
         payload: country,
+    };
+};
+export const sortCountriesByName = (sortBy) => {
+    return {
+        type: "SORT_COUNTRIES_NAME",
+        payload: sortBy,
+    };
+};
+export const sortCountriesByRegion = (sortBy) => {
+    return {
+        type: "SORT_COUNTRIES_REGION",
+        payload: sortBy,
     };
 };
 export const fetchCountries = () => {
