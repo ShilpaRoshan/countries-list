@@ -15,7 +15,6 @@ const countriesReducer = (state = initialState, action) => {
                 loading: true,
             };
         case "FETCH_COUNTRIES_SUCCESS":
-            // console.log(action.payload, "COUNTRIES_REDUCER");
             return {
                 ...state,
                 countriesData: action.payload,
@@ -40,39 +39,21 @@ const countriesReducer = (state = initialState, action) => {
 
         case "ADD_FAVROITE_COUNTRIES": {
             const country = action.payload;
-            // const isDuplicate = state.favoriteCountries.some(
-            //     (value) => value.name.common === country.name.common
-            // );
-            // if (isDuplicate) {
-            //     return state;
-            // }
             const newFavCountry = [...state.favoriteCountries, country];
-            console.log(newFavCountry, "LINE-50-Add_reducer");
             return {
                 ...state,
                 favoriteCountries: newFavCountry,
             };
         }
-
         case "REMOVE_FAVORITE_COUNTRIES": {
             const country = action.payload;
-            const index = state.favoriteCountries.findIndex(
-                (value) => value.name.common === country.name.common
+            const favoriteCountries = state.favoriteCountries.filter(
+                (value) => value.name.common !== country.name.common
             );
-            console.log(index, "REMOVE_COUNTRIES_REDUCER");
-            if (index >= 0) {
-                console.log("INDEX > 0");
-                state.favoriteCountries.splice(index, 1);
-                console.log(
-                    state.favoriteCountries,
-                    "NEW_[]_AFTER_REMOVE_COUNTRY"
-                );
-                return {
-                    ...state,
-                    // favoriteCountries: newFavCountry,
-                };
-            }
-            return state;
+            return {
+                ...state,
+                favoriteCountries,
+            };
         }
 
         default:

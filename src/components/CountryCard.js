@@ -5,7 +5,7 @@ import { CardContent, CardMedia } from "@mui/material";
 import { Typography } from "@mui/material";
 
 export default function CountryCard({ result }) {
-    console.log(`This is CountryCard result ${result.borders}`);
+    //console.log(`This is CountryCard result ${result.borders}`);
 
     return (
         <Card sx={{ minWidth: 200 }}>

@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Menu from "@mui/material/Menu";
 import Favorite from "@mui/icons-material/Favorite";
 import { Badge } from "@mui/material";
+
 import SearchCountries from "./SearchCountries";
+import { margin } from "@mui/system";
 
 export default function Navigation() {
     const favoriteCountries = useSelector(
@@ -75,7 +77,9 @@ export default function Navigation() {
                         badgeContent={favoriteCountries.length}
                         color="error"
                     >
-                        <Favorite />
+                        <Link to="/favorites">
+                            <Favorite sx={{ color: "white" }} />
+                        </Link>
                     </Badge>
                 </Toolbar>
             </AppBar>

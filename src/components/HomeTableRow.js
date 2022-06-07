@@ -11,35 +11,15 @@ import {
 } from "../redux/countriesAction";
 
 export default function HomeTableRow({ columns, row }) {
-    //const [isOpen, setIsOpen] = useState(true);
     const dispatch = useDispatch();
     const favoriteCountries = useSelector(
         (appState) => appState.countriesData.favoriteCountries
     );
-    //const isOpen = useSelector((appState) => appState.countriesData.isOpen);
-    //console.log(favoriteCountries, "HOMETABLEROW_FAV_COUNTRIES[]_CHECK");
-
     const handleFavoriteClick = (country) => {
-        // if (isOpen) {
-        //     console.log(isOpen, "CHECK IS_OPEN_REMOVE");
-        //     dispatch(removeFavoriteCountries(country));
-        //     return;
-        // } else {
-        //     console.log(isOpen, "CHECK IS_OPEN_ADD");
-        //     dispatch(addFavoriteCountries(country));
-        //     return;
-        // }
-        // isOpen
-        //     ? {dispatch(removeFavoriteCountries(country))
-        //     console.log("DISPATCH REMOVE")}
-        //     : dispatch(addFavoriteCountries(country));
-        // dispatch(addFavoriteCountries(country));
-        // console.log(isOpen, "HOMETABLEROW");
         const isDuplicate = favoriteCountries.some(
             (value) => value.name.common === country.name.common
         );
         if (isDuplicate) {
-            //console.log(isDuplicate, "Duplicate_REMOVE");
             dispatch(removeFavoriteCountries(country));
 
             return;
@@ -61,19 +41,24 @@ export default function HomeTableRow({ columns, row }) {
         <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
             {columns.map((column) => {
                 let result = "";
-                if (column.id === "name") {
-                    result = row.name.common;
-                    //console.log(result, "HOMETABLEROW");
-                } else if (column.id === "flags") {
-                    result = row.flags.png;
-                } else if (column.id === "region") {
-                    result = row.region;
-                } else if (column.id === "population") {
-                    result = row.population;
-                } else if (column.id === "languages") {
-                    result = row.languages;
-                } else {
-                    result = null;
+                switch (column.id) {
+                    case "name":
+                        result = row.name.common;
+                        break;
+                    case "flags":
+                        result = row.flags.png;
+                        break;
+                    case "region":
+                        result = row[column.id] || "No Data";
+                        break;
+                    case "population":
+                        result = row[column.id] || "No Data";
+                        break;
+                    case "languages":
+                        result = row.languages;
+                        break;
+                    default:
+                        result = null;
                 }
                 const value = result;
 
