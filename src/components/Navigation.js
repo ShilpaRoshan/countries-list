@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,8 +9,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import { Badge } from "@mui/material";
 
 import SearchCountries from "./SearchCountries";
-//import SortComponent from "./SortComponent";
-import Test from "./Test";
+import SortComponent from "./SortComponent";
 
 export default function Navigation() {
     const favoriteCountries = useSelector(
@@ -83,8 +82,7 @@ export default function Navigation() {
                             <Favorite sx={{ color: "white" }} />
                         </Link>
                     </Badge>
-                    {/* <SortComponent /> */}
-                    <Test />
+                    <SortComponent />
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}

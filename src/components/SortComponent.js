@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -9,25 +10,38 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 
-import { useDispatch } from "react-redux";
 import {
-    sortCountriesByName,
     sortCountriesByRegion,
+    sortCountriesByName,
+    sortCountriesByPopulation,
 } from "../redux/countriesAction";
 
 const options = [
-    "Create a merge commit",
-    "Squash and merge",
-    "Rebase and merge",
+    "Sort By Region (A-Z)",
+    "Sort By Name (A-Z)",
+    "Sort By Population (high-low)",
 ];
-export default function SortComponent() {
+
+export default function Test() {
     const dispatch = useDispatch();
+
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-    const handleClick = () => {
+    const handleClick = (sortBy) => {
         console.info(`You clicked ${options[selectedIndex]}`);
+        if (selectedIndex === 0) {
+            dispatch(sortCountriesByRegion());
+            return;
+        }
+        if (selectedIndex === 1) {
+            dispatch(sortCountriesByName());
+            return;
+        }
+        if (selectedIndex === 2) {
+            dispatch(sortCountriesByPopulation());
+        }
     };
 
     const handleMenuItemClick = (event, index) => {
@@ -46,10 +60,7 @@ export default function SortComponent() {
 
         setOpen(false);
     };
-    const handleSortByRegion = (sortBy) => {
-        console.log("SORT_BY_BUTTON_CLICKED");
-        dispatch(sortCountriesByRegion(sortBy));
-    };
+
     return (
         <React.Fragment>
             <ButtonGroup
@@ -57,7 +68,9 @@ export default function SortComponent() {
                 ref={anchorRef}
                 aria-label="split button"
             >
-                <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+                <Button onClick={handleClick("asc")}>
+                    {options[selectedIndex]}
+                </Button>
                 <Button
                     size="small"
                     aria-controls={open ? "split-button-menu" : undefined}
@@ -75,6 +88,7 @@ export default function SortComponent() {
                 role={undefined}
                 transition
                 disablePortal
+                sx={{ overflow: "hidden" }}
             >
                 {({ TransitionProps, placement }) => (
                     <Grow
@@ -88,15 +102,10 @@ export default function SortComponent() {
                     >
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList
-                                    sx={{ color: "black" }}
-                                    id="split-button-menu"
-                                    autoFocusItem
-                                >
+                                <MenuList id="split-button-menu" autoFocusItem>
                                     {options.map((option, index) => (
                                         <MenuItem
                                             key={option}
-                                            // disabled={index === 1}
                                             selected={index === selectedIndex}
                                             onClick={(event) =>
                                                 handleMenuItemClick(
@@ -117,11 +126,3 @@ export default function SortComponent() {
         </React.Fragment>
     );
 }
-
-// const handleSortByName = (sortBy) => {
-//     console.log("SORT_BY_BUTTON_CLICKED");
-//     dispatch(sortCountriesByName(sortBy));
-// };
-
-//
-//         onClick={() => handleSortByRegion("asc")}

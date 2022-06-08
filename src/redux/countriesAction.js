@@ -46,6 +46,12 @@ export const sortCountriesByRegion = (sortBy) => {
         payload: sortBy,
     };
 };
+export const sortCountriesByPopulation = (sortBy) => {
+    return {
+        type: "SORT_COUNTRIES_POPULATION",
+        payload: sortBy,
+    };
+};
 export const fetchCountries = () => {
     return async (dispatch) => {
         try {

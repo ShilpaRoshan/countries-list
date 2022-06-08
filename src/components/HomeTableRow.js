@@ -34,7 +34,6 @@ export default function HomeTableRow({ columns, row }) {
         const isDuplicate = favoriteCountries.some(
             (value) => value.name.common === country.name.common
         );
-        console.log(isDuplicate, "Handletogglefavorite");
         return isDuplicate;
     }
     return (

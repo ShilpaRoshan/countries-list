@@ -87,9 +87,48 @@ const countriesReducer = (state = initialState, action) => {
                         return 1;
                     }
                     return 0;
+                    // if (firstEl.region < secondEl.region) {
+                    //     if (action.payload === "asc") {
+                    //         return -1;
+                    //     }
+                    //     return 1;
+                    // }
+                    // if (firstEl.region > secondEl.region) {
+                    //     if (action.payload === "desc") {
+                    //         return 1;
+                    //     }
+                    //     return -1;
+                    // }
+                    // return 0;
                 }
             );
             console.log(sortedArray, "SORTED_COUNRTIES_DATA");
+            return {
+                ...state,
+                countriesData: sortedArray,
+            };
+        }
+        case "SORT_COUNTRIES_POPULATION": {
+            // console.log(state.countriesData, "SORT_COUNTRIES_REDUCER");
+            // console.log(action.payload, "PAYLOAD");
+            const sortedArray = [...state.countriesData].sort(
+                (firstEl, secondEl) => {
+                    if (firstEl.population < secondEl.population) {
+                        if (action.payload === "asc") {
+                            return -1;
+                        }
+                        return 1;
+                    }
+                    if (firstEl.population > secondEl.population) {
+                        if (action.payload === "desc") {
+                            return 1;
+                        }
+                        return -1;
+                    }
+                    return 0;
+                }
+            );
+            console.log(sortedArray, "SORTED_COUNRTIES_DATA_POPULATION");
             return {
                 ...state,
                 countriesData: sortedArray,

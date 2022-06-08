@@ -46,7 +46,6 @@ export default function Home() {
             ? state.countriesData.filteredCountriesData
             : state.countriesData.countriesData
     );
-    console.log(countriesData, "HOME_COMPONENT");
     const loading = useSelector((state) => state.countriesData.loading);
     const error = useSelector((state) => state.countriesData.error);
 
@@ -65,7 +64,7 @@ export default function Home() {
     if (error) return <div>Error</div>;
     if (loading) return <div>Loading...</div>;
     return (
-        <Paper sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", marginTop: "100px" }}>
             <TableContainer>
                 <Table stickyHeader aria-label="sticky table">
                     <HomeTableHead columns={columns} />
