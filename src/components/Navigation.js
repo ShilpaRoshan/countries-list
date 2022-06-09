@@ -10,11 +10,18 @@ import { Badge } from "@mui/material";
 
 import SearchCountries from "./SearchCountries";
 import SortComponent from "./SortComponent";
+import SwitchThemeButton from "./SwitchThemeButton";
+import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
 
 export default function Navigation() {
     const favoriteCountries = useSelector(
         (appState) => appState.countriesData.favoriteCountries
     );
+
+    const { theme } = React.useContext(ThemeContext);
+    //console.log(theme, "Theme");
+    const themeColor = themes[theme];
+    //console.log(themeColor, "THEME_COLOR");
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -71,7 +78,13 @@ export default function Navigation() {
 
     return (
         <Box sx={{ flexGrow: 1, maxHeight: "300vh" }}>
-            <AppBar position="static">
+            <AppBar
+                position="static"
+                sx={{
+                    backgroundColor: themeColor.background,
+                    color: themeColor.text,
+                }}
+            >
                 <Toolbar>
                     <SearchCountries />
                     <Badge
@@ -82,6 +95,7 @@ export default function Navigation() {
                             <Favorite sx={{ color: "white" }} />
                         </Link>
                     </Badge>
+                    <SwitchThemeButton />
                     <SortComponent />
                 </Toolbar>
             </AppBar>

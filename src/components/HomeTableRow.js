@@ -21,10 +21,9 @@ export default function HomeTableRow({ columns, row }) {
         );
         if (isDuplicate) {
             dispatch(removeFavoriteCountries(country));
-
             return;
         } else {
-            console.log(isDuplicate, "Duplicate_ADD");
+            //console.log(isDuplicate, "Duplicate_ADD");
             dispatch(addFavoriteCountries(country));
 
             return;

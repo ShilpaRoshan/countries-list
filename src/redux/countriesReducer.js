@@ -38,6 +38,7 @@ const countriesReducer = (state = initialState, action) => {
             };
 
         case "ADD_FAVROITE_COUNTRIES": {
+            console.log(state, "STATE_ADD_REDUCER");
             const country = action.payload;
             const newFavCountry = [...state.favoriteCountries, country];
             return {
@@ -56,8 +57,6 @@ const countriesReducer = (state = initialState, action) => {
             };
         }
         case "SORT_COUNTRIES_NAME": {
-            // console.log(state.countriesData, "SORT_COUNTRIES_REDUCER");
-            // console.log(action.payload, "PAYLOAD");
             const sortedArray = [...state.countriesData].sort(
                 (firstEl, secondEl) => {
                     if (firstEl.name.common < secondEl.name.common) {
@@ -69,15 +68,13 @@ const countriesReducer = (state = initialState, action) => {
                     return 0;
                 }
             );
-            console.log(sortedArray, "SORTED_COUNRTIES_DATA");
+            // console.log(sortedArray, "SORTED_COUNRTIES_DATA");
             return {
                 ...state,
                 countriesData: sortedArray,
             };
         }
         case "SORT_COUNTRIES_REGION": {
-            // console.log(state.countriesData, "SORT_COUNTRIES_REDUCER");
-            // console.log(action.payload, "PAYLOAD");
             const sortedArray = [...state.countriesData].sort(
                 (firstEl, secondEl) => {
                     if (firstEl.region < secondEl.region) {
@@ -87,19 +84,6 @@ const countriesReducer = (state = initialState, action) => {
                         return 1;
                     }
                     return 0;
-                    // if (firstEl.region < secondEl.region) {
-                    //     if (action.payload === "asc") {
-                    //         return -1;
-                    //     }
-                    //     return 1;
-                    // }
-                    // if (firstEl.region > secondEl.region) {
-                    //     if (action.payload === "desc") {
-                    //         return 1;
-                    //     }
-                    //     return -1;
-                    // }
-                    // return 0;
                 }
             );
             console.log(sortedArray, "SORTED_COUNRTIES_DATA");
@@ -109,8 +93,6 @@ const countriesReducer = (state = initialState, action) => {
             };
         }
         case "SORT_COUNTRIES_POPULATION": {
-            // console.log(state.countriesData, "SORT_COUNTRIES_REDUCER");
-            // console.log(action.payload, "PAYLOAD");
             const sortedArray = [...state.countriesData].sort(
                 (firstEl, secondEl) => {
                     if (firstEl.population < secondEl.population) {

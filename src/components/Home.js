@@ -15,8 +15,14 @@ const columns = [
         label: "Flag",
         minWidth: 100,
         align: "center",
-
-        format: (value) => <img src={value} alt="flag" />,
+        borderRadius: "50%",
+        format: (value) => (
+            <img
+                src={value}
+                alt="flag"
+                style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+            />
+        ),
     },
     { id: "name", label: "Name", minWidth: 170, align: "center" },
 
@@ -64,7 +70,7 @@ export default function Home() {
     if (error) return <div>Error</div>;
     if (loading) return <div>Loading...</div>;
     return (
-        <Paper sx={{ width: "100%", marginTop: "100px" }}>
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
             <TableContainer>
                 <Table stickyHeader aria-label="sticky table">
                     <HomeTableHead columns={columns} />

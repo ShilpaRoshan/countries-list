@@ -22,7 +22,7 @@ const options = [
     "Sort By Population (high-low)",
 ];
 
-export default function Test() {
+export default function SortComponent() {
     const dispatch = useDispatch();
 
     const [open, setOpen] = React.useState(false);
@@ -88,7 +88,7 @@ export default function Test() {
                 role={undefined}
                 transition
                 disablePortal
-                sx={{ overflow: "hidden" }}
+                sx={{ overflow: "hidden", zIndex: 3 }}
             >
                 {({ TransitionProps, placement }) => (
                     <Grow
