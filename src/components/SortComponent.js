@@ -29,22 +29,20 @@ export default function SortComponent() {
     const anchorRef = React.useRef(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-    const handleClick = (sortBy) => {
-        console.info(`You clicked ${options[selectedIndex]}`);
-        if (selectedIndex === 0) {
+    const handleMenuItemClick = (event, index) => {
+        console.log(index, "handleMenuItemClick");
+        if (index === 0) {
             dispatch(sortCountriesByRegion());
             return;
         }
-        if (selectedIndex === 1) {
+        if (index === 1) {
             dispatch(sortCountriesByName());
             return;
         }
-        if (selectedIndex === 2) {
+        if (index === 2) {
             dispatch(sortCountriesByPopulation());
+            return;
         }
-    };
-
-    const handleMenuItemClick = (event, index) => {
         setSelectedIndex(index);
         setOpen(false);
     };
@@ -68,9 +66,7 @@ export default function SortComponent() {
                 ref={anchorRef}
                 aria-label="split button"
             >
-                <Button onClick={handleClick("asc")}>
-                    {options[selectedIndex]}
-                </Button>
+                <Button>{options[selectedIndex]}</Button>
                 <Button
                     size="small"
                     aria-controls={open ? "split-button-menu" : undefined}

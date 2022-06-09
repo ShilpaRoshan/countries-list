@@ -20,18 +20,24 @@ const columns = [
             <img
                 src={value}
                 alt="flag"
-                style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+                style={{ borderRadius: "50%", width: "100px", height: "100px" }}
             />
         ),
     },
-    { id: "name", label: "Name", minWidth: 170, align: "center" },
+    {
+        id: "name",
+        label: "Name",
+        minWidth: 170,
+        align: "center",
+        color: "black",
+    },
 
     { id: "region", label: "Region", minWidth: 100 },
     {
         id: "languages",
         label: "Languages",
         minWidth: 170,
-        align: "right",
+        align: "center",
     },
     {
         id: "population",
@@ -39,6 +45,12 @@ const columns = [
         minWidth: 170,
         align: "right",
         format: (value) => value.toLocaleString("en-US"),
+    },
+    {
+        id: "favourite",
+        label: "Favorite",
+        minWidth: 170,
+        align: "center",
     },
 ];
 

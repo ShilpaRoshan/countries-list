@@ -77,7 +77,7 @@ export default function Navigation() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1, maxHeight: "300vh" }}>
+        <Box sx={{ flexGrow: 1 }}>
             <AppBar
                 position="static"
                 sx={{
@@ -92,7 +92,11 @@ export default function Navigation() {
                         color="error"
                     >
                         <Link to="/favorites">
-                            <Favorite sx={{ color: "white" }} />
+                            <Favorite
+                                sx={{
+                                    color: "white",
+                                }}
+                            />
                         </Link>
                     </Badge>
                     <SwitchThemeButton />

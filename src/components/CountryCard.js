@@ -29,18 +29,22 @@ export default function CountryCard({ result }) {
                             Region : {result.region}
                         </Typography>
                         Languages :
-                        {Object.keys(result.languages).map((key) => {
-                            return (
-                                <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    key={result.cca3 + key}
-                                    component="p"
-                                >
-                                    {result.languages[key]}
-                                </Typography>
-                            );
-                        })}
+                        {result.languages ? (
+                            Object.keys(result.languages).map((key) => {
+                                return (
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        key={result.cca3 + key}
+                                        component="p"
+                                    >
+                                        {result.languages[key]}
+                                    </Typography>
+                                );
+                            })
+                        ) : (
+                            <Typography>No Languages</Typography>
+                        )}
                         Borders:
                         {result.borders ? (
                             Object.keys(result.borders).map((key) => {
@@ -56,7 +60,7 @@ export default function CountryCard({ result }) {
                                 );
                             })
                         ) : (
-                            <p>No Borders</p>
+                            <Typography>No Borders</Typography>
                         )}
                         {Object.keys(result.currencies).map((currency) => {
                             return (
@@ -74,7 +78,7 @@ export default function CountryCard({ result }) {
                     </CardContent>
                 </div>
             ) : (
-                <p>No results found</p>
+                <Typography>No Results Found!!</Typography>
             )}
         </Card>
     );

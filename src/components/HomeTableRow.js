@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -11,6 +12,8 @@ import {
 } from "../redux/countriesAction";
 
 export default function HomeTableRow({ columns, row }) {
+    const { theme } = React.useContext(ThemeContext);
+    const themeColor = themes[theme];
     const dispatch = useDispatch();
     const favoriteCountries = useSelector(
         (appState) => appState.countriesData.favoriteCountries
@@ -53,7 +56,20 @@ export default function HomeTableRow({ columns, row }) {
                         result = row[column.id] || "No Data";
                         break;
                     case "languages":
-                        result = row.languages;
+                        result = row.languages || "No Data";
+                        break;
+                    case "favourite":
+                        result = (
+                            <FavoriteIcon
+                                sx={() =>
+                                    handletogglefavorite(row)
+                                        ? { color: "red" }
+                                        : { color: "" }
+                                }
+                                onClick={() => handleFavoriteClick(row)}
+                            />
+                        );
+
                         break;
                     default:
                         result = null;
@@ -61,7 +77,14 @@ export default function HomeTableRow({ columns, row }) {
                 const value = result;
 
                 return value ? (
-                    <TableCell key={column.id} align={column.align}>
+                    <TableCell
+                        key={column.id}
+                        align={column.align}
+                        sx={{
+                            backgroundColor: themeColor.tablebody,
+                            color: themeColor.textbody,
+                        }}
+                    >
                         {column.format ? (
                             column.format(value)
                         ) : column.id === "languages" ? (
@@ -69,7 +92,10 @@ export default function HomeTableRow({ columns, row }) {
                                 return <p key={item}>{value[item]}</p>;
                             })
                         ) : column.id === "name" ? (
-                            <Link to={`/country/${value}`}>
+                            <Link
+                                style={{ textDecoration: "none" }}
+                                to={`/country/${value}`}
+                            >
                                 <p>{value}</p>
                             </Link>
                         ) : (
@@ -78,16 +104,10 @@ export default function HomeTableRow({ columns, row }) {
                     </TableCell>
                 ) : null;
             })}
-            <TableCell>
-                <FavoriteIcon
-                    sx={() =>
-                        handletogglefavorite(row)
-                            ? { color: "red" }
-                            : { color: "" }
-                    }
-                    onClick={() => handleFavoriteClick(row)}
-                />
-            </TableCell>
         </TableRow>
     );
 }
+//  <FavoriteIcon
+//      sx={() => (handletogglefavorite(row) ? { color: "red" } : { color: "" })}
+//      onClick={() => handleFavoriteClick(row)}
+//  />;

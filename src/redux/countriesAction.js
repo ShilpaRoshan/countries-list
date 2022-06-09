@@ -5,6 +5,7 @@ export const fetchCountriesRequest = () => {
 };
 
 export const fetchCountriesSuccess = (response) => {
+    console.log(response, "fetchCountriesSuccess");
     return {
         type: "FETCH_COUNTRIES_SUCCESS",
         payload: response,
@@ -34,22 +35,19 @@ export const removeFavoriteCountries = (country) => {
         payload: country,
     };
 };
-export const sortCountriesByName = (sortBy) => {
+export const sortCountriesByName = () => {
     return {
         type: "SORT_COUNTRIES_NAME",
-        payload: sortBy,
     };
 };
-export const sortCountriesByRegion = (sortBy) => {
+export const sortCountriesByRegion = () => {
     return {
         type: "SORT_COUNTRIES_REGION",
-        payload: sortBy,
     };
 };
-export const sortCountriesByPopulation = (sortBy) => {
+export const sortCountriesByPopulation = () => {
     return {
         type: "SORT_COUNTRIES_POPULATION",
-        payload: sortBy,
     };
 };
 export const fetchCountries = () => {
@@ -59,7 +57,6 @@ export const fetchCountries = () => {
             const response = await fetch(
                 "https://restcountries.com/v3.1/all"
             ).then((response) => response.json());
-            //console.log(response, "Response DATA");
             dispatch(fetchCountriesSuccess(response));
         } catch (error) {
             dispatch(fetchCountriesFailure(error));

@@ -57,6 +57,7 @@ const countriesReducer = (state = initialState, action) => {
             };
         }
         case "SORT_COUNTRIES_NAME": {
+            console.log("SORT_COUNTRIES_NAME");
             const sortedArray = [...state.countriesData].sort(
                 (firstEl, secondEl) => {
                     if (firstEl.name.common < secondEl.name.common) {
@@ -68,7 +69,7 @@ const countriesReducer = (state = initialState, action) => {
                     return 0;
                 }
             );
-            // console.log(sortedArray, "SORTED_COUNRTIES_DATA");
+
             return {
                 ...state,
                 countriesData: sortedArray,
@@ -86,31 +87,26 @@ const countriesReducer = (state = initialState, action) => {
                     return 0;
                 }
             );
-            console.log(sortedArray, "SORTED_COUNRTIES_DATA");
+
             return {
                 ...state,
                 countriesData: sortedArray,
             };
         }
         case "SORT_COUNTRIES_POPULATION": {
+            console.log("SORT_COUNTRIES_POPULATION");
             const sortedArray = [...state.countriesData].sort(
-                (firstEl, secondEl) => {
-                    if (firstEl.population < secondEl.population) {
-                        if (action.payload === "asc") {
-                            return -1;
-                        }
-                        return 1;
-                    }
-                    if (firstEl.population > secondEl.population) {
-                        if (action.payload === "desc") {
-                            return 1;
-                        }
-                        return -1;
-                    }
-                    return 0;
-                }
+                (firstEl, secondEl) => secondEl.population - firstEl.population
+                //     if (firstEl.population < secondEl.population) {
+                //         return -1;
+                //     }
+                //     if (firstEl.population > secondEl.population) {
+                //         return 1;
+                //     }
+                //     return 0;
+                // }
             );
-            console.log(sortedArray, "SORTED_COUNRTIES_DATA_POPULATION");
+
             return {
                 ...state,
                 countriesData: sortedArray,
