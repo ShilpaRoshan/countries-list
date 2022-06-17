@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 //import useCountry from "../custom-hooks/useCountry";
@@ -34,7 +34,6 @@ export default function Country() {
     if (loading) return <div>Loading...</div>;
     return (
         <div>
-            <Link to="/">Back</Link>
             {console.log(countryNameData[0], "COUNTRY_PAGE")}
             {countryNameData &&
                 countryNameData
