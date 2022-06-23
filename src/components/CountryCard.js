@@ -52,15 +52,29 @@ export default function CountryCard({ result }) {
                     <Typography variant="h2" sx={{ margin: "4rem 0" }}>
                         {result.name.common}
                     </Typography>
-                    <Card sx={{ minWidth: 345, textAlign: "center" }}>
+                    <Card
+                        sx={{
+                            minWidth: 200,
+                            minHeight: 200,
+                            textAlign: "center",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
                         <CardMedia
+                            sx={{ minWidth: 200, minHeight: 200 }}
                             component="img"
-                            height="140"
                             image={result.flags.png}
                             alt={result.name.common + "flag"}
                         />
                         {/* <img src={result.flags.png} alt="flag" /> */}
-                        <CardContent sx={{ textAlign: "center" }}>
+                        <CardContent
+                            sx={{
+                                textAlign: "center",
+                                margin: "auto",
+                                padding: 10,
+                            }}
+                        >
                             <List
                                 sx={{
                                     width: "100%",

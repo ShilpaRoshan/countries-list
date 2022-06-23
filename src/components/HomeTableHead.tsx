@@ -4,21 +4,23 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
 import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
+import { Column } from "../types";
 
-export default function HomeTableHead({ columns }) {
-    const { theme } = React.useContext(ThemeContext);
-    const themeColor = themes[theme];
+export default function HomeTableHead({ columns }: Column[]) {
+    console.log(columns, "HomeTableHead");
+    // const { theme } = React.useContext(ThemeContext);
+    // const themeColor = themes[theme];
     return (
         <TableHead>
             <TableRow>
-                {columns.map((column) => (
+                {columns.map((column: any) => (
                     <TableCell
                         key={column.id}
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
                         sx={{
-                            backgroundColor: themeColor.tablehead,
-                            color: themeColor.text,
+                            // backgroundColor: themeColor.tablehead,
+                            // color: themeColor.text,
                             fontSize: "1.5em",
                             fontWeight: "bold",
                         }}

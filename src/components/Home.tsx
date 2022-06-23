@@ -8,15 +8,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import HomeTableBody from "./HomeTableBody";
 import HomeTableHead from "./HomeTableHead";
+import { AppState, Column } from "../types";
 
-const columns = [
+const columns: Column[] = [
     {
         id: "flags",
         label: "Flag",
         minWidth: 100,
         align: "center",
-        borderRadius: "50%",
-        format: (value) => (
+        format: (value: string) => (
             <img
                 src={value}
                 alt="flag"
@@ -29,7 +29,6 @@ const columns = [
         label: "Name",
         minWidth: 170,
         align: "center",
-        color: "black",
     },
 
     { id: "region", label: "Region", minWidth: 100 },
@@ -44,7 +43,7 @@ const columns = [
         label: "Population",
         minWidth: 170,
         align: "right",
-        format: (value) => value.toLocaleString("en-US"),
+        format: (value: number) => value.toLocaleString("en-US"),
     },
     {
         id: "favourite",
@@ -58,21 +57,29 @@ export default function Home() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const dispatch = useDispatch();
-    const countriesData = useSelector((state) =>
-        state.countriesData.keyword
-            ? state.countriesData.filteredCountriesData
-            : state.countriesData.countriesData
+    const dispatch = useDispatch<any>();
+    const countriesData = useSelector((appState: AppState) =>
+        appState.countriesData.keyword
+            ? appState.countriesData.filteredCountriesData
+            : appState.countriesData.countriesData
     );
-    const loading = useSelector((state) => state.countriesData.loading);
-    const error = useSelector((state) => state.countriesData.error);
+    const loading = useSelector(
+        (appState: AppState) => appState.countriesData.loading
+    );
+    const error = useSelector(
+        (appState: AppState) => appState.countriesData.error
+    );
 
-    const handleChangePage = (event, newPage) => {
+    const handleChangePage = (event: any, newPage: number) => {
+        console.log(event, newPage, "Home");
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(event.target.value);
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const result = +event.target.value;
+        setRowsPerPage(result);
         setPage(0);
     };
 
