@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Country from "./components/Country";
+import Country from "./components/CountryComponent";
 import Home from "./components/Home";
 import FavoriteCountries from "./components/FavoriteCountries";
 import Navigation from "./components/Navigation";

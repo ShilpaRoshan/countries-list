@@ -12,10 +12,11 @@ import SearchCountries from "./SearchCountries";
 import SortComponent from "./SortComponent";
 import SwitchThemeButton from "./SwitchThemeButton";
 import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
+import { AppState } from "../types";
 
 export default function Navigation() {
     const favoriteCountries = useSelector(
-        (appState) => appState.countriesData.favoriteCountries
+        (appState: AppState) => appState.countriesData.favoriteCountries
     );
 
     const { theme } = React.useContext(ThemeContext);

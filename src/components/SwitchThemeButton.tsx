@@ -68,6 +68,7 @@ export default function SwitchThemeButton() {
             <FormControlLabel
                 control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
                 onClick={switchThemeHandler}
+                label="Switch Mode"
             />
         </FormGroup>
     );

@@ -1,22 +1,39 @@
 export type AppState = {
-    countriesData: {
-        countriesData: Country[];
-        error: null | string;
-        favoriteCountries: Country[];
-        filteredCountriesData: Country[];
-        keyword: null | string;
-        loading: boolean;
-    };
+    countriesData: CountriesInitialState;
     countryData: {
-        countryNameData: Country;
+        countryNameData: Country[];
         error: null | string;
         loading: boolean;
     };
 };
 
-type Country = {
+export type CountriesInitialState = {
+    countriesData: Country[];
+    error: null | string;
+    favoriteCountries: Country[];
+    filteredCountriesData: Country[];
+    keyword: null | string;
+    loading: boolean;
+};
+
+export type Country = {
     name: {
         common: string;
+    };
+    flags: {
+        png: string;
+    };
+    region: string;
+    population: number;
+    languages: {
+        [key: string]: string;
+    };
+    borders: string[];
+    cca3: string;
+    currencies: {
+        [key: string]: {
+            name: string;
+        };
     };
 };
 

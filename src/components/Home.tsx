@@ -16,9 +16,9 @@ const columns: Column[] = [
         label: "Flag",
         minWidth: 100,
         align: "center",
-        format: (value: string) => (
+        format: (value) => (
             <img
-                src={value}
+                src={value as string}
                 alt="flag"
                 style={{ borderRadius: "50%", width: "100px", height: "100px" }}
             />
@@ -43,7 +43,7 @@ const columns: Column[] = [
         label: "Population",
         minWidth: 170,
         align: "right",
-        format: (value: number) => value.toLocaleString("en-US"),
+        format: (value) => value.toLocaleString("en-US"),
     },
     {
         id: "favourite",

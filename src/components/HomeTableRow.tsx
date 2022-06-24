@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
+// import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -10,15 +10,23 @@ import {
     addFavoriteCountries,
     removeFavoriteCountries,
 } from "../redux/countriesAction";
+import { Column, Country, AppState } from "../types";
 
-export default function HomeTableRow({ columns, row }) {
-    const { theme } = React.useContext(ThemeContext);
-    const themeColor = themes[theme];
-    const dispatch = useDispatch();
+type HomeTableRowProps = {
+    columns: Column[];
+    row: Country;
+};
+
+export default function HomeTableRow({ columns, row }: HomeTableRowProps) {
+    // const { theme } = React.useContext(ThemeContext);
+    // const themeColor = themes[theme];
+    const dispatch = useDispatch<any>();
+
     const favoriteCountries = useSelector(
-        (appState) => appState.countriesData.favoriteCountries
+        (appState: AppState) => appState.countriesData.favoriteCountries
     );
-    const handleFavoriteClick = (country) => {
+    const handleFavoriteClick = (country: Country) => {
+        console.log(country, handleFavoriteClick);
         const isDuplicate = favoriteCountries.some(
             (value) => value.name.common === country.name.common
         );
@@ -26,22 +34,22 @@ export default function HomeTableRow({ columns, row }) {
             dispatch(removeFavoriteCountries(country));
             return;
         } else {
-            //console.log(isDuplicate, "Duplicate_ADD");
             dispatch(addFavoriteCountries(country));
 
             return;
         }
     };
-    function handletogglefavorite(country) {
+    function handletogglefavorite(country: Country) {
         const isDuplicate = favoriteCountries.some(
             (value) => value.name.common === country.name.common
         );
         return isDuplicate;
     }
     return (
-        <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+        <TableRow hover role="checkbox" tabIndex={-1}>
+            {/* //key={row.code} */}
             {columns.map((column) => {
-                let result = "";
+                let result: any = "";
                 switch (column.id) {
                     case "name":
                         result = row.name.common;
@@ -50,10 +58,10 @@ export default function HomeTableRow({ columns, row }) {
                         result = row.flags.png;
                         break;
                     case "region":
-                        result = row[column.id] || "No Data";
+                        result = row.region || "No Data";
                         break;
                     case "population":
-                        result = row[column.id] || "No Data";
+                        result = row.population || "No Data";
                         break;
                     case "languages":
                         result = row.languages || "No Data";
@@ -80,10 +88,10 @@ export default function HomeTableRow({ columns, row }) {
                     <TableCell
                         key={column.id}
                         align={column.align}
-                        sx={{
-                            backgroundColor: themeColor.tablebody,
-                            color: themeColor.textbody,
-                        }}
+                        // sx={{
+                        //     backgroundColor: themeColor.tablebody,
+                        //     color: themeColor.textbody,
+                        // }}
                     >
                         {column.format ? (
                             column.format(value)
@@ -107,7 +115,3 @@ export default function HomeTableRow({ columns, row }) {
         </TableRow>
     );
 }
-//  <FavoriteIcon
-//      sx={() => (handletogglefavorite(row) ? { color: "red" } : { color: "" })}
-//      onClick={() => handleFavoriteClick(row)}
-//  />;

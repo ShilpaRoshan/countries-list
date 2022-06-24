@@ -1,35 +1,47 @@
-export const fetchCountriesRequest = () => {
+import { Dispatch } from "redux";
+import { Country } from "../types";
+import {
+    FetchCountriesRequest,
+    FetchCountriesSuccess,
+    FetchCountriesFailure,
+} from "./actiontypes";
+import { Constants } from "./constants";
+
+export const fetchCountriesRequest = (): FetchCountriesRequest => {
     return {
-        type: "FETCH_COUNTRIES_REQUEST",
+        type: Constants.FETCH_COUNTRIES_REQUEST,
     };
 };
 
-export const fetchCountriesSuccess = (response) => {
-    console.log(response, "fetchCountriesSuccess");
+export const fetchCountriesSuccess = (
+    response: Country[]
+): FetchCountriesSuccess => {
+    console.log(response, "fetchCountriesSuccess_action");
     return {
-        type: "FETCH_COUNTRIES_SUCCESS",
+        type: Constants.FETCH_COUNTRIES_SUCCESS,
         payload: response,
     };
 };
-export const fetchCountriesFailure = (error) => {
+export const fetchCountriesFailure = (error: any): FetchCountriesFailure => {
     return {
-        type: "FETCH_COUNTRIES_FAILURE",
+        type: Constants.FETCH_COUNTRIES_FAILURE,
         payload: error,
     };
 };
-export const filteredCountries = (keyword) => {
+export const filteredCountries = (keyword: any) => {
+    console.log(keyword, "filteredCountries_Action");
     return {
         type: "FILTER_COUNTRIES",
         payload: keyword,
     };
 };
-export const addFavoriteCountries = (country) => {
+export const addFavoriteCountries = (country: any) => {
     return {
         type: "ADD_FAVROITE_COUNTRIES",
         payload: country,
     };
 };
-export const removeFavoriteCountries = (country) => {
+export const removeFavoriteCountries = (country: any) => {
     return {
         type: "REMOVE_FAVORITE_COUNTRIES",
         payload: country,
@@ -51,14 +63,15 @@ export const sortCountriesByPopulation = () => {
     };
 };
 export const fetchCountries = () => {
-    return async (dispatch) => {
+    return async (dispatch: Dispatch) => {
         try {
             dispatch(fetchCountriesRequest());
-            const response = await fetch(
+            const response: Country[] = await fetch(
                 "https://restcountries.com/v3.1/all"
             ).then((response) => response.json());
             dispatch(fetchCountriesSuccess(response));
         } catch (error) {
+            console.log(error);
             dispatch(fetchCountriesFailure(error));
         }
     };

@@ -17,9 +17,9 @@ import LanguageIcon from "@mui/icons-material/Language";
 import BorderBottomIcon from "@mui/icons-material/BorderBottom";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
 import TranslateIcon from "@mui/icons-material/Translate";
+import { Country } from "../types";
 
-export default function CountryCard({ result }) {
-    //console.log(`This is CountryCard result ${result.borders}`);
+export default function CountryCard({ result }: { result: Country }) {
     const [openCapital, setOpenCapital] = React.useState(false);
     const [openRegion, setOpenRegion] = React.useState(false);
     const [openBorders, setOpenBorders] = React.useState(false);
@@ -54,15 +54,20 @@ export default function CountryCard({ result }) {
                     </Typography>
                     <Card
                         sx={{
-                            minWidth: 200,
-                            minHeight: 200,
+                            minWidth: 100,
+                            minHeight: 100,
                             textAlign: "center",
                             display: "flex",
                             flexDirection: "column",
                         }}
                     >
                         <CardMedia
-                            sx={{ minWidth: 200, minHeight: 200 }}
+                            sx={{
+                                maxWidth: 200,
+                                maxHeight: 200,
+                                justifyContent: "center",
+                                alignSelf: "center",
+                            }}
                             component="img"
                             image={result.flags.png}
                             alt={result.name.common + "flag"}

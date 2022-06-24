@@ -5,18 +5,24 @@ import { useDispatch, useSelector } from "react-redux";
 //import useCountry from "../custom-hooks/useCountry";
 import CountryCard from "./CountryCard";
 import { fetchCountryData } from "../redux/countryAction";
+import { AppState, Country } from "../types";
 
-export default function Country() {
+export default function CountryComponent() {
     const { countryname } = useParams();
-    const dispatch = useDispatch();
+    let currentName: string = "";
+    if (countryname) {
+        currentName = countryname;
+    }
+    const dispatch = useDispatch<any>();
     const countryNameData = useSelector(
-        (state) => state.countryData.countryNameData
+        (appState: AppState) => appState.countryData.countryNameData
     );
-
-    console.log(countryNameData, "COUNTRY_PAGE_BEFORE");
-
-    const error = useSelector((state) => state.countryData.error);
-    const loading = useSelector((state) => state.countryData.loading);
+    const error = useSelector(
+        (appState: AppState) => appState.countryData.error
+    );
+    const loading = useSelector(
+        (appState: AppState) => appState.countryData.loading
+    );
 
     // const { countryNameData, error, loading } = useCountry(
     //     `https://restcountries.com/v3.1/name/${countryname}`
@@ -25,27 +31,29 @@ export default function Country() {
     //     console.log("USE-EFFECT");
     //     dispatch(fetchCountryData(countryname));
     // }, [dispatch, countryname]);
+
     useEffect(() => {
-        console.log("USE_EFFECT");
-        dispatch(fetchCountryData(countryname));
+        if (countryname) {
+            dispatch(fetchCountryData(countryname));
+        }
     }, [dispatch, countryname]);
 
     if (error) return <div>Error</div>;
     if (loading) return <div>Loading...</div>;
     return (
         <div>
-            {console.log(countryNameData[0], "COUNTRY_PAGE")}
             {countryNameData &&
                 countryNameData
                     .filter(
                         (data) =>
                             data.name.common.toLowerCase() ===
-                            countryname.toLowerCase()
+                            currentName.toLowerCase()
                     )
 
-                    .map((result) => {
+                    .map((result: Country) => {
                         return (
                             <>
+                                {console.log(result, "result")}
                                 <CountryCard result={result} />
                             </>
                         );

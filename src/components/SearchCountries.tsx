@@ -47,7 +47,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function SearchCountries() {
     const dispatch = useDispatch();
-    const inputHandler = (event) => {
+    const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(filteredCountries(event.target.value));
     };
     return (

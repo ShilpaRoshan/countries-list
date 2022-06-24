@@ -1,4 +1,7 @@
-const initialState = {
+import { CountriesInitialState } from "../types";
+import { Actions } from "./actiontypes";
+import { Constants } from "./constants";
+const initialState: CountriesInitialState = {
     countriesData: [],
     error: null,
     loading: false,
@@ -6,21 +9,21 @@ const initialState = {
     keyword: null,
     favoriteCountries: [],
 };
-
-const countriesReducer = (state = initialState, action) => {
+const countriesReducer = (state = initialState, action: Actions | any) => {
     switch (action.type) {
-        case "FETCH_COUNTRIES_REQUEST":
+        case Constants.FETCH_COUNTRIES_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
-        case "FETCH_COUNTRIES_SUCCESS":
+        case Constants.FETCH_COUNTRIES_SUCCESS:
+            console.log(action.payload, "FETCH_COUNTRIES_SUCCESS_REDUCER");
             return {
                 ...state,
                 countriesData: action.payload,
                 loading: false,
             };
-        case "FETCH_COUNTRIES_FAILURE":
+        case Constants.FETCH_COUNTRIES_FAILURE:
             return {
                 ...state,
                 error: action.payload,
@@ -97,14 +100,6 @@ const countriesReducer = (state = initialState, action) => {
             console.log("SORT_COUNTRIES_POPULATION");
             const sortedArray = [...state.countriesData].sort(
                 (firstEl, secondEl) => secondEl.population - firstEl.population
-                //     if (firstEl.population < secondEl.population) {
-                //         return -1;
-                //     }
-                //     if (firstEl.population > secondEl.population) {
-                //         return 1;
-                //     }
-                //     return 0;
-                // }
             );
 
             return {
