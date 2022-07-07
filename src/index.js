@@ -7,12 +7,12 @@ import { Provider } from "react-redux";
 import ThemeComponent from "../src/themeComponent/ThemeComponent";
 
 ReactDOM.render(
-    <React.StrictMode>
-        <ThemeComponent>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </ThemeComponent>
-    </React.StrictMode>,
-    document.getElementById("root")
+  <React.StrictMode>
+    <ThemeComponent>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeComponent>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

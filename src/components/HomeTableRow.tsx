@@ -7,111 +7,106 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
-    addFavoriteCountries,
-    removeFavoriteCountries,
+  addFavoriteCountries,
+  removeFavoriteCountries,
 } from "../redux/countriesAction";
 import { Column, Country, AppState } from "../types";
 
 type HomeTableRowProps = {
-    columns: Column[];
-    row: Country;
+  columns: Column[];
+  row: Country;
 };
 
 export default function HomeTableRow({ columns, row }: HomeTableRowProps) {
-    // const { theme } = React.useContext(ThemeContext);
-    // const themeColor = themes[theme];
-    const dispatch = useDispatch<any>();
+  // const { theme } = React.useContext(ThemeContext);
+  // const themeColor = themes[theme];
+  const dispatch = useDispatch<any>();
 
-    const favoriteCountries = useSelector(
-        (appState: AppState) => appState.countriesData.favoriteCountries
+  const favoriteCountries = useSelector(
+    (appState: AppState) => appState.countriesData.favoriteCountries
+  );
+  const handleFavoriteClick = (country: Country) => {
+    console.log(country, "hometableRow");
+    const isDuplicate = favoriteCountries.some(
+      (value) => value.name.common === country.name.common
     );
-    const handleFavoriteClick = (country: Country) => {
-        console.log(country, handleFavoriteClick);
-        const isDuplicate = favoriteCountries.some(
-            (value) => value.name.common === country.name.common
-        );
-        if (isDuplicate) {
-            dispatch(removeFavoriteCountries(country));
-            return;
-        } else {
-            dispatch(addFavoriteCountries(country));
+    if (isDuplicate) {
+      dispatch(removeFavoriteCountries(country));
+      return;
+    } else {
+      dispatch(addFavoriteCountries(country));
 
-            return;
-        }
-    };
-    function handletogglefavorite(country: Country) {
-        const isDuplicate = favoriteCountries.some(
-            (value) => value.name.common === country.name.common
-        );
-        return isDuplicate;
+      return;
     }
-    return (
-        <TableRow hover role="checkbox" tabIndex={-1}>
-            {/* //key={row.code} */}
-            {columns.map((column) => {
-                let result: any = "";
-                switch (column.id) {
-                    case "name":
-                        result = row.name.common;
-                        break;
-                    case "flags":
-                        result = row.flags.png;
-                        break;
-                    case "region":
-                        result = row.region || "No Data";
-                        break;
-                    case "population":
-                        result = row.population || "No Data";
-                        break;
-                    case "languages":
-                        result = row.languages || "No Data";
-                        break;
-                    case "favourite":
-                        result = (
-                            <FavoriteIcon
-                                sx={() =>
-                                    handletogglefavorite(row)
-                                        ? { color: "red" }
-                                        : { color: "" }
-                                }
-                                onClick={() => handleFavoriteClick(row)}
-                            />
-                        );
-
-                        break;
-                    default:
-                        result = null;
-                }
-                const value = result;
-
-                return value ? (
-                    <TableCell
-                        key={column.id}
-                        align={column.align}
-                        // sx={{
-                        //     backgroundColor: themeColor.tablebody,
-                        //     color: themeColor.textbody,
-                        // }}
-                    >
-                        {column.format ? (
-                            column.format(value)
-                        ) : column.id === "languages" ? (
-                            Object.keys(value).map((item) => {
-                                return <p key={item}>{value[item]}</p>;
-                            })
-                        ) : column.id === "name" ? (
-                            <Link
-                                style={{ textDecoration: "none" }}
-                                to={`/country/${value}`}
-                            >
-                                <p>{value}</p>
-                            </Link>
-                        ) : (
-                            <p>{value}</p>
-                        )}
-                    </TableCell>
-                ) : null;
-            })}
-        </TableRow>
+  };
+  function handletogglefavorite(country: Country) {
+    const isDuplicate = favoriteCountries.some(
+      (value) => value.name.common === country.name.common
     );
+    return isDuplicate;
+  }
+  return (
+    <TableRow hover role="checkbox" tabIndex={-1}>
+      {/* //key={row.code} */}
+      {columns.map((column) => {
+        let result: any = "";
+        switch (column.id) {
+          case "name":
+            result = row.name.common;
+            break;
+          case "flags":
+            result = row.flags.png;
+            break;
+          case "region":
+            result = row.region || "No Data";
+            break;
+          case "population":
+            result = row.population || "No Data";
+            break;
+          case "languages":
+            result = row.languages || "No Data";
+            break;
+          case "favourite":
+            result = (
+              <FavoriteIcon
+                sx={() =>
+                  handletogglefavorite(row) ? { color: "red" } : { color: "" }
+                }
+                onClick={() => handleFavoriteClick(row)}
+              />
+            );
+
+            break;
+          default:
+            result = null;
+        }
+        const value = result;
+
+        return value ? (
+          <TableCell
+            key={column.id}
+            align={column.align}
+            // sx={{
+            //     backgroundColor: themeColor.tablebody,
+            //     color: themeColor.textbody,
+            // }}
+          >
+            {column.format ? (
+              column.format(value)
+            ) : column.id === "languages" ? (
+              Object.keys(value).map((item) => {
+                return <p key={item}>{value[item]}</p>;
+              })
+            ) : column.id === "name" ? (
+              <Link style={{ textDecoration: "none" }} to={`/country/${value}`}>
+                <p>{value}</p>
+              </Link>
+            ) : (
+              <p>{value}</p>
+            )}
+          </TableCell>
+        ) : null;
+      })}
+    </TableRow>
+  );
 }

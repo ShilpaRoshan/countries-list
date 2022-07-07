@@ -15,97 +15,92 @@ import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
 import { AppState } from "../types";
 
 export default function Navigation() {
-    const favoriteCountries = useSelector(
-        (appState: AppState) => appState.countriesData.favoriteCountries
-    );
+  const favoriteCountries = useSelector(
+    (appState: AppState) => appState.countriesData.favoriteCountries
+  );
 
-    const { theme } = React.useContext(ThemeContext);
-    //console.log(theme, "Theme");
-    const themeColor = themes[theme];
-    //console.log(themeColor, "THEME_COLOR");
+  const { theme } = React.useContext(ThemeContext);
+  const themeColor = themes[theme];
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
 
-    const menuId = "primary-search-account-menu";
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        ></Menu>
-    );
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    ></Menu>
+  );
 
-    const mobileMenuId = "primary-search-account-menu-mobile";
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        ></Menu>
-    );
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    ></Menu>
+  );
 
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar
-                position="static"
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: themeColor.background,
+          color: themeColor.text,
+        }}
+      >
+        <Toolbar>
+          <SearchCountries />
+          <Badge badgeContent={favoriteCountries.length} color="error">
+            <Link to="/favorites">
+              <Favorite
                 sx={{
-                    backgroundColor: themeColor.background,
-                    color: themeColor.text,
+                  color: "white",
                 }}
-            >
-                <Toolbar>
-                    <SearchCountries />
-                    <Badge
-                        badgeContent={favoriteCountries.length}
-                        color="error"
-                    >
-                        <Link to="/favorites">
-                            <Favorite
-                                sx={{
-                                    color: "white",
-                                }}
-                            />
-                        </Link>
-                    </Badge>
-                    <SwitchThemeButton />
-                    <SortComponent />
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
-    );
+              />
+            </Link>
+          </Badge>
+          <SwitchThemeButton />
+          <SortComponent />
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+      {renderMenu}
+    </Box>
+  );
 }
