@@ -76,7 +76,7 @@ export default function Navigation() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, display: "flex" }}>
       <AppBar
         position="static"
         sx={{
@@ -84,19 +84,27 @@ export default function Navigation() {
           color: themeColor.text,
         }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <SearchCountries />
-          <Badge badgeContent={favoriteCountries.length} color="error">
-            <Link to="/favorites">
-              <Favorite
-                sx={{
-                  color: "white",
-                }}
-              />
-            </Link>
-          </Badge>
-          <SwitchThemeButton />
-          <SortComponent />
+          <Toolbar>
+            <SortComponent />
+            <Badge badgeContent={favoriteCountries.length} color="error">
+              <Link to="/favorites">
+                <Favorite
+                  sx={{
+                    color: "white",
+                    margin: "3px",
+                  }}
+                />
+              </Link>
+            </Badge>
+            <SwitchThemeButton />
+          </Toolbar>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
