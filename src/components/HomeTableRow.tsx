@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
+import { ThemeContext, themes } from "../themeComponent/ThemeComponent";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -18,8 +18,8 @@ type HomeTableRowProps = {
 };
 
 export default function HomeTableRow({ columns, row }: HomeTableRowProps) {
-  // const { theme } = React.useContext(ThemeContext);
-  // const themeColor = themes[theme];
+  const { theme } = React.useContext(ThemeContext);
+  const themeColor = themes[theme];
   const dispatch = useDispatch<any>();
 
   const favoriteCountries = useSelector(
@@ -58,13 +58,13 @@ export default function HomeTableRow({ columns, row }: HomeTableRowProps) {
             result = row.flags.png;
             break;
           case "region":
-            result = row.region || "No Data";
+            result = row.region || "-";
             break;
           case "population":
-            result = row.population || "No Data";
+            result = row.population || "-";
             break;
           case "languages":
-            result = row.languages || "No Data";
+            result = row.languages || "-";
             break;
           case "favourite":
             result = (
@@ -86,10 +86,10 @@ export default function HomeTableRow({ columns, row }: HomeTableRowProps) {
           <TableCell
             key={column.id}
             align={column.align}
-            // sx={{
-            //     backgroundColor: themeColor.tablebody,
-            //     color: themeColor.textbody,
-            // }}
+            sx={{
+              backgroundColor: themeColor.tablebody,
+              color: themeColor.textbody,
+            }}
           >
             {column.format ? (
               column.format(value)
